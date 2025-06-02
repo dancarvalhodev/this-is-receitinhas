@@ -1,7 +1,7 @@
 services:
     nginx:
         build:
-            context: bin/nginx
+            context: ./bin/nginx
         container_name: ${CONTAINER_NAME}nginx
         ports:
             - ${PORT_NGINX}:80
@@ -11,7 +11,7 @@ services:
         restart: always
     php:
         build:
-            context: bin/php
+            context: ./bin/php
         container_name: ${CONTAINER_NAME}php
         volumes:
             - ./www:/usr/share/nginx/html
@@ -19,14 +19,14 @@ services:
         restart: always
     redis:
         build:
-            context: bin/redis
+            context: ./bin/redis
         container_name: ${CONTAINER_NAME}redis
-        depends_on:
-            - php
+        volumes:
+            - ./data/redis:/data
         restart: always
     mysql:
         build:
-            context: bin/mysql
+            context: ./bin/mysql
         container_name: ${CONTAINER_NAME}mysql
         ports:
             - ${PORT_MYSQL}:3306
